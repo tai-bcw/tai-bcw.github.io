@@ -1,479 +1,449 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.min.js" integrity="sha512-UU0D/t+4/SgJpOeBYkY+lG16MaNF8aqmermRIz8dlmQhOlBnw6iQrnt4Ijty513WB3w+q4JO75IX03lDj6qQNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://code.highcharts.com/7.0.3/highcharts.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude 3.5 Innovation Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            /* background: linear-gradient(to right, #000428, #004e92);*/
+            background: #000428;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #00063c, #004e92);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.4.1/lity.css" integrity="sha512-NDcw4w5Uk5nra1mdgmYYbghnm2azNRbxeI63fd3Zw72aYzFYdBGgODILLl1tHZezbC8Kep/Ep/civILr5nd1Qw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script>
-    function makeid(length) {
-      var result = '';
-      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      var charactersLength = characters.length;
-      for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() *
-          charactersLength));
-      }
-      return result;
-    }
-
-
-    function hax1() {
-      console.log(`Type 'hackSite()' in to console to hack the test and get the password.`)
-    }
-  </script>
-
-</head>
-
-<!-- Test Status Modal -->
-<div id="test-status" style="display: none">
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-lg-4">
-        <h4> Quiz Outcome </h4>
-
-        <div id="quiz-stat-container">
-          <div id="modal-status"></div>
-          <div id="rg-chart-pie"></div>
-        </div>
-
-        <button class="btn btn-secondary" onClick="location.reload()"> Restart Quiz </button>
-        <div class="mini-text">
-            In order to try the test again and try for a badge, you must restart the test again.  
-            We do this to ensure reinforcement of content. 
-        </div>
-      </div>
-      <div class="col-lg-4 md-text">
-          <h4> Badge Requirements </h4>
-          In order to receive a BCW Academy badge, you must first meet the following restrictions: 
-          <br/>
-          <br/>
-          <ul>
-            <li> Complete ALL questions on the content quiz.</li>
-            <li> Answer 100% of the questions correctly. </li>
-          </ul>
-          You can re-take the quiz as many times as needed.  Keep in mind, you must always restart from the beginning.  Don't worry, we aren't keeping track of tries.
-
-      </div>
-      <div class="col-lg-4 text-center">
-        <div class="emphasis-box">
-        <h4> Badge Status </h4>
-        <div id="quiz-status-text"></div>
-        <div class="preview-text">
-            IPFS Badge Preview:
-        </div>
-        <div class="preview-container">
-          <img class="badge-preview" src="https://ipfs.io/ipfs/QmNgLu83as4nV8LQJuUEYqXo8zXi5A57J4isZsMVtadQxR"/>
-        </div>
+        /* width */
+        ::-webkit-scrollbar {
+          width: 10px;
+        }
         
-        <button id="gen-badge-button" class="btn disabled" onClick=""> Generate NFT Badge </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- END Status Modal -->
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #00063c;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #004e92;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
 
-<!-- HEADER -->
+        a {
+            color: white;
+        }
+
+        ul {
+            padding-top: 25px;
+        }
+        h1, h2 {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            border-bottom: 2px solid #00ffff;
+            padding-bottom: 10px;
+        }
+
+        .header-highlight {
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 255, 120, 0.5);
+            border-bottom: 2px solid #FFD700;
+        } 
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        ul li::before {
+            content: "▹";
+            color: #00ffff;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        .cta-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ffff, #00bfff);
+            color: #00039f;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background: linear-gradient(to right, #001e3c, #003366);
+            margin: 15% auto;
+            padding: 25px;
+            border: 1px solid #00ffff;
+            width: 70%;
+            max-width: 700px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        }
+        .close {
+            color: #00ffff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .close:hover,
+        .close:focus {
+            color: #00bfff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .center-head {
+            margin: auto;
+            text-align: center;
+        }
+        .subhead {
+            margin-top: 5px;
+        }
+        button {
+            background: none;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+        .logo-svg {
+            min-width: 250px;
+            max-width: 300px;
+        }
+    </style>
+</head>
 <body>
-  <div id="header">
     <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <img id="logo" src="https://www.bcw.group/wp-content/uploads/2021/08/bcw_logo.png" />
-          <span id="header-text">ACADEMY</span>
+        <div class="center-head">
+          <svg class="logo-svg" version=1.1 viewBox="0 0 164.31 59.362"width=164.31mm xmlns=http://www.w3.org/2000/svg><defs><filter height=1.5394 id=filter265 style=color-interpolation-filters:sRGB width=1.145 x=-.072475 y=-.26972><feFlood flood-color=rgb(0,255,255) flood-opacity=.85098 in=SourceGraphic result=flood /><feGaussianBlur in=SourceGraphic result=blur stdDeviation=8.500000 /><feOffset dx=0.000000 dy=0.000000 in=blur result=offset /><feComposite in=flood in2=offset result=comp1 operator=in /><feComposite in=SourceGraphic in2=comp1 result=fbSourceGraphic /><feColorMatrix in=fbSourceGraphic result=fbSourceGraphicAlpha values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"/><feFlood flood-color=rgb(84,0,255) flood-opacity=.49412 in=fbSourceGraphic result=flood /><feGaussianBlur in=fbSourceGraphic result=blur stdDeviation=7.878788 /><feOffset dx=0.000000 dy=0.000000 in=blur result=offset /><feComposite in=flood in2=offset result=comp1 operator=in /><feComposite in=fbSourceGraphic in2=comp1 result=comp2 /></filter></defs><g transform="translate(-22.301 -118.82)"><g style=fill:#feffff;filter:url(#filter265) transform="matrix(.26458 0 0 .26458 32.701 129.22)"><g style=fill:#feffff fill=#29386e><path d="m233.62 29.242h50.607c17.451 0 24.805 9.847 24.805 22.437 0 8.601-4.736 16.578-15.331 19.071v0.249c11.717 1.745 18.821 10.346 18.821 21.813 0 18.573-15.705 25.429-29.417 25.429h-49.485zm9.224 38.641h36.522c12.465 0 20.442-3.988 20.442-15.83 0-10.845-7.229-14.335-17.326-14.335h-39.639v30.165zm0 41.882h38.766c11.967 0 20.941-4.736 20.941-16.952 0-12.839-7.978-16.453-18.697-16.453h-41.01z"style=fill:#feffff /><path d="m409.26 84.337c-1.994 19.943-18.448 36.148-44.001 36.148-28.919 0-47.367-18.199-47.367-46.744 0-20.317 12.59-46.743 47.367-46.743 19.445 0 40.511 8.851 43.253 32.284h-9.224c-2.742-16.952-17.95-23.808-34.029-23.808-22.063 0-37.395 12.34-37.395 38.267 0 19.819 10.346 38.268 37.395 38.268 21.19 0 31.66-10.72 34.776-27.672z"style=fill:#feffff /><path d="m532.41 29.242h9.973l-29.916 88.999h-10.72l-26.8-76.036h-0.249l-26.426 76.036h-10.72l-29.542-88.999h10.346l24.681 76.783h0.249l26.301-76.783h11.344l26.301 76.783h0.249z"style=fill:#feffff /></g><g style=fill:#feffff id=GLYPH><linearGradient gradientUnits=userSpaceOnUse id=SVGID_1_ x2=222.43 y1=72.871 y2=72.871><stop offset=0 style=stop-color:#00aa9f /><stop offset=1 style=stop-color:#282b65 /></linearGradient><path d="m150.24 0-19.692 19.691-17.495 17.585-1.684 1.693-0.488 0.491-32.987 33.159 24.749 24.968-10.443 10.496-35.577-35.899 41.808-41.914 4.194-4.205 16.774-16.816-8.976-8.978-19.419 19.474-19.313-19.474-71.696 72.348 72.492 73.122 72.313-72.359-24.862-25.078 10.609-10.605 34.763 35.085-62.612 62.829 8.975 8.918 18.821-18.873 19.692 19.911 72.24-72.73zm-77.678 127.84-54.779-55.273 54.074-54.121 10.225 10.277-43.3 43.412 8.919 9.032 35.576 35.898zm54.342-54.509-15.283 15.342-15.886-16.05 15.285-15.341zm23.171 54.124-10.661-10.771 43.793-43.896-8.925-8.977-34.811-35.088 10.715-10.769 54.396 54.888z"style=fill:#feffff fill=url(#SVGID_1_) /></g></g></g></svg>
         </div>
-        <div class="col-md-6">
-          <div id="link-container" class="float-right">
-            <a href="https://intranet.bcw.group" target="_blank">Intranet</a>
+
+        <h1 class="subhead">Claude 3.5 Innovation Challenge</h1>
+        <h3> July 11 - August 11 </h3>
+        
+        <h2>Revolutionize Our Workflow with AI</h2>
+        <p>We're thrilled to announce an exciting company-wide competition to harness the power of Claude 3.5, a cutting-edge large language model (LLM)! This is your chance to shape the future of our organization through innovative AI applications.</p>
+        
+        <h2>What is Claude 3.5?</h2>
+        <p>Claude 3.5 is a versatile AI capable of:</p>
+        <ul>
+            <li>Generating creative text (poems, code, scripts, emails, etc.)</li>
+            <li>Answering complex questions</li>
+            <li>Translating languages</li>
+            <li>Creating various types of content</li>
+        </ul>
+
+        <button id="openAboutModal">More Claude Resources</button>
+
+        <h2>The Challenge</h2>
+        <p>Develop a groundbreaking use case for Claude 3.5 that transforms a process or function within your department or across our organization.</p>
+        
+        <h2>Who Can Participate?</h2>
+        <p>All BCW team members are welcome!</p>
+        <p>Here are some example project ideas:</p>
+        <table style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr style="background-color: rgba(0, 255, 255, 0.1);">
+                <th style="border: 1px solid #00ffff; padding: 10px; text-align: left;">Department</th>
+                <th style="border: 1px solid #00ffff; padding: 10px; text-align: left;">Project Ideas</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #00ffff; padding: 10px; vertical-align: top;">Frontend Development</td>
+                <td style="border: 1px solid #00ffff; padding: 10px;">
+                    <ul>
+                        <li>AI-Powered Accessibility Enhancer</li>
+                        <li>Voice-Controlled UI Navigation</li>
+                        <li>Emotion-Responsive Interface</li>
+                        <li>AR Product Visualization Tool</li>
+                        <li>AI-Driven Layout Generator</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0, 255, 255, 0.1);">
+                <td style="border: 1px solid #00ffff; padding: 10px; vertical-align: top;">Systems Technical Development</td>
+                <td style="border: 1px solid #00ffff; padding: 10px;">
+                    <ul>
+                        <li>Self-Healing Microservices Architecture</li>
+                        <li>Predictive Infrastructure Scaling</li>
+                        <li>Natural Language Query System for Databases</li>
+                        <li>Blockchain-Based Audit Trail System</li>
+                        <li>AI-Optimized Load Balancing</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #00ffff; padding: 10px; vertical-align: top;">Accounting</td>
+                <td style="border: 1px solid #00ffff; padding: 10px;">
+                    <ul>
+                        <li>AI-Powered Expense Categorization and Fraud Detection</li>
+                        <li>Natural Language Financial Report Generator</li>
+                        <li>Predictive Cash Flow Analysis Tool</li>
+                        <li>Blockchain-Based Intercompany Reconciliation System</li>
+                        <li>AI Tax Optimization Assistant</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr style="background-color: rgba(0, 255, 255, 0.1);">
+                <td style="border: 1px solid #00ffff; padding: 10px; vertical-align: top;">Marketing</td>
+                <td style="border: 1px solid #00ffff; padding: 10px;">
+                    <ul>
+                        <li>AI-Driven Personalized Content Creation</li>
+                        <li>Predictive Customer Lifetime Value Model</li>
+                        <li>Real-Time Social Media Sentiment Analysis Tool</li>
+                        <li>AR-Enhanced Product Catalog</li>
+                        <li>AI-Powered Influencer Matching System</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #00ffff; padding: 10px; vertical-align: top;">Legal</td>
+                <td style="border: 1px solid #00ffff; padding: 10px;">
+                    <ul>
+                        <li>AI-Assisted Contract Analysis and Risk Assessment</li>
+                        <li>Predictive Legal Outcome Analyzer</li>
+                        <li>Automated Legal Research Assistant</li>
+                        <li>Blockchain-Based Intellectual Property Registry</li>
+                        <li>AI-Driven Compliance Monitoring System</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        
+       
+        
+        <h2>Our Goals</h2>
+        <p>We're seeking innovative applications that:</p>
+        <ol>
+            <li>Boost efficiency and productivity</li>
+            <li>Minimize manual work and errors</li>
+            <li>Enhance communication and collaboration</li>
+            <li>Elevate customer experience</li>
+            <li>Spark new ideas and solutions</li>
+        </ol>
+        
+        <h2>Judging Criteria</h2>
+        <p>Submissions will be evaluated on:</p>
+        <ol>
+            <li><strong>Originality & Creativity</strong>: How innovative is your idea?</li>
+            <li><strong>Feasibility & Impact</strong>: Can it be implemented, and what's the potential benefit?</li>
+            <li><strong>Clarity & Presentation</strong>: Is your concept clearly explained?</li>
+        </ol>
+        
+        <h2>How to Participate</h2>
+        <ul>
+            <li><strong>Teams:</strong> <strong> Up to </strong> 2 people maximum </li>
+            <li><strong>Deadline:</strong> Submit by August 11 to the linked form below</li>
+            <li><strong>Submission Requirements:</strong>
+                <ul>
+                    <li>Current process description</li>
+                    <li>Detailed Claude 3.5 implementation plan</li>
+                    <li>Expected benefits and impact</li>
+                    <li>Optional (but encouraged): Visual representation</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <button id="openModal">How to Set Up Your Presentation</button>
+
+        <h2 class="header-highlight">Prize</h2>
+        <p>Winning teams will get a roundtrip paid flight to Phuket.</p>
+        
+        <h2>Important Considerations</h2>
+        <p>While Claude 3.5 is powerful, keep in mind:</p>
+        <ul>
+            <li>It may occasionally produce incorrect or biased information</li>
+            <li>It's not a substitute for professional advice (legal, financial, medical)</li>
+            <li>Anthropic may adjust usage limits and features</li>
+        </ul>
+        
+        <p>Ready to revolutionize our workflow? Let's innovate together!</p>
+        
+        <a href="https://forms.gle/4CEsf7eKW6tZEYVQ9" class="cta-button">Submit Your Idea</a>
+    </div>
+
+    <div id="presentationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Setting Up Your Presentation</h2>
+            <p>To make your idea shine, follow these guidelines for your presentation slide deck and demo:</p>
+            <h3>Presentation slides Tips:</h3>
+            <ul>
+                <li>Use a clean, futuristic template that aligns with the AI theme</li>
+                <li>Limit text on slides - aim for key points and visuals</li>
+                <li>Include a slide on the current process you're improving</li>
+                <li>Dedicate 2-3 slides to explain how Claude 3.5 will be integrated</li>
+                <li>Use charts or graphs to illustrate expected benefits</li>
+                <li>Add a slide for potential challenges and how to address them</li>
+                <li>Conclude with a powerful "vision of the future" slide</li>
+            </ul>
+            <h3>Demo Guidelines:</h3>
+            <ul>
+                <li>Prepare a 2-5 minute live demo of your concept</li>
+                <li>If possible, create a prototype or mockup of your idea</li>
+                <li>Show a before and after comparison of the process</li>
+                <li>Highlight key interactions with Claude 3.5</li>
+                <li>Be prepared to explain how your solution can scale</li>
+            </ul>
+            <p>Remember, your presentation should be engaging, clear, and showcase the innovative potential of your idea. Good luck!</p>
+        </div>
+    </div>
+
+    <div id="aboutClaudeModal" class = "modal">
+        <div class="modal-content">
+          <span class="close aboutClose">&times;</span>
+          <div>
+            <div class="">
+                <h1>Addendum: About Claude</h1>
+                <p class="subhead"><em>(Partially generated by Claude itself.)</em></p>
+                
+                <h2>Key Links</h2>
+                <ul>
+                    <li>
+                        <a href="https://claude.ai">Claude itself</a>
+                    </li>
+                    <li>
+                        <a href="https://www.anthropic.com/">Anthropic Website</a>
+                    </li>
+                </ul>
+
+                <h2>Use Case & example videos (Thanks Dwight!):</h2>
+                <ul>
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=b7JCor1DGJw"> Claude 3.5 Deep Dive </a>
+                    </li>
+    
+                    <li>
+                        <a href="https://www.youtube.com/watch?v=wBJZQt23J7M"> 15 Use Cases for NEW Claude Sonnet 3.5</a> 
+                    </li>
+                </ul>
+                
+                <p>Claude is an AI assistant created by Anthropic, trained using constitutional AI principles. This LLM has broad knowledge across many fields and can assist with tasks like analysis, writing, math, coding, and creative projects. Claude aims to be helpful, honest, and ethical in its interactions.</p>
+                
+                <h2>Some key aspects of its functionality include:</h2>
+                <ul>
+                    <li>Engaging in thoughtful dialogue on complex topics</li>
+                    <li>Breaking down problems step-by-step</li>
+                    <li>Providing explanations for my reasoning</li>
+                    <li>Maintaining context over long conversations</li>
+                    <li>Analyzing images that are shared with me</li>
+                </ul>
+                
+                <p>Claude is able to understand context and nuance across multiple languages and is tailored for handling nuances and various contexts.</p>
+                
+                <p>For the most up-to-date and accurate information about my specific capabilities compared to other AI models, check out the <a href="https://www.anthropic.com/">Anthropic official website</a>.</p>
+
+                <h1>Miscellaneous Usage Notes</h1>
+                    
+                    <ul>
+                        <li><strong>[Configuration Note]</strong> Make sure to enable "Artifacts" in the settings under "experimental settings".</li>
+                        <li><strong>[Usage Note]</strong> Claude will truncate long files so if you are generating large templates or blocks of content, you can subdivide these into separate files.</li>
+                        <li><strong>[Additional Resource]</strong> If you are looking for some tips on "how to talk" to a chat app, the principles that apply to LLMs such as Gemini or GPT still apply. You can find a good starting point for chats here: <a href="https://github.com/f/awesome-chatgpt-prompts/">awesome-chatgpt-prompts</a></li>
+                    </ul>
+            
+                    <h2>Prompt Report [Author: Tai-BCW]</h2>
+                    <ul>
+                        <li>This website was built with assistance from Claude. For building sections of the site, Claude was instrumental in reducing time-to-deployment and generating styles, coding basic functionality, and dealing with inserts for new sections.</li>
+                        <li>The site required multiple prompts so be prepared for doing more than just a one-shot build if you are doing anything more complex than copywriting.</li>
+                        <li>During the build, Claude often would make small changes that would break styling or code, so I would recommend using the Artifacts, preview, and your own text editor or integrated development environment (IDE) for keeping track of your build.</li>
+                        <li>During building F/E, I would pre-prompt minified CSS to make sure styling tags were consistent.</li>
+                        <li>Content was written in Google docs first then copy/pasted into Claude.</li>
+                        <li>Although this could be built in similar time if I had just built by hand, it cut down any need for sitting and editing styles, choosing stack, and kept everything super lightweight.</li>
+                        <li>This is a VERY limited build with Claude and if you were to want to use a framework or build, the workflow for a larger site would end up being a bit arduous and not any better than just using co-pilot.
+                            <ul>
+                                <li>HOWEVER, if I was not a specialist in doing development, this would be an amazing tool for mockups and pre-viz work and has the potential to lower the bar of entry for getting working mockups to development teams considerably.</li>
+                            </ul>
+                        </li>
+                        <li>The source code for this site can be found here: (TK-GIST)</li>
+                    </ul>
+
+            </div>
           </div>
         </div>
-      </div>
     </div>
-  </div>
-<!-- END HEADER -->
 
-<!-- Gen NFT Badge -->
-<div id="badge-generation" style="display: none">
-  <div class="container">
-  </div>
-</div>
-<!-- END Gen NFT Badge -->
+    <script>
+        var modal = document.getElementById("presentationModal");
+        var claudeModal = document.getElementById("aboutClaudeModal");
 
-<!-- MAIN TEST SECTION -->
-  <div id="main-test-section" class="container main-container">
-    <h3>What is The Internet/Decentralization.</h3>
-    <br />
-    <div id="mainTest">
-    </div>
-    <br />
-    <div id="test-stat-text"></div>
-    <br>
-    <a class="submit-button btn btn-lg btn-info" onClick="checkAnswers()"> Submit Answers </a>
-  </div>
-<!-- END MAIN TEST SECTION -->
+        var btn = document.getElementById("openModal");
+        var aboutBtn = document.getElementById("openAboutModal");
+        var span = document.getElementsByClassName("close")[0];
+        var aboutSpan = document.getElementsByClassName("aboutClose")[0];
 
-<!-- FOOTER -->
-  <div id="footer">
-    NOTE: This is a Proof of Concept.  Do not connect this site to any DMO or payout API's.
-  </div>
-<!--  END FOOTER -->
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
 
+
+        aboutBtn.onclick = function() {
+            claudeModal.style.display = "block";
+        }
+
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        aboutSpan.onclick = function() {
+            claudeModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal || event.target == claudeModal) {
+                modal.style.display = "none";
+                claudeModal.style.display = "none";
+            }
+        }
+    </script>
 </body>
-
-
-
-<script>
-  const quiz_finished = false;
-  const PASSWORD = makeid(5);
-  const HAX = `\n\n\n#####################################################\n   ______    ______    ____   ______        _______ \n  / / /\\ \\  / /\\ \\ \\  | __ ) / ___\\ \\      / /_   _|\n / / /  \\ \\/ /  \\ \\ \\ |  _ \\| |    \\ \\ /\\ / /  | |  \n \\ \\ \\  / /\\ \\  / / / | |_) | |___  \\ V  V /   | |  \n  \\_\\_\\/_/  \\_\\/_/_/  |____/ \\____|  \\_/\\_/    |_|\n\n######################################################\n\n Oh WOW!  You found the special secret place.  You're \n not supposed to be here.  Oh well.  I suppose since you \n made it this far.  I can help you out. \n\n If you want to have a chance at solving this test,\n enter this passcode to continue:\n\n${PASSWORD}\n\nDo NOT refresh or restart or you will have to discover this again!\n`;
-
-  function hackSite() {
-    console.log(HAX)
-  }
-
-  let answers = {}
-
-  const QUESTIONS = [{
-      q: "What does HTML stand for?",
-      type: "select",
-      ops: ["Happy Tai Maladroit Loops", "Hypertext Markup Language", "Hyperscript Management Language", "Holistic Technology MainLine"],
-      a: 1,
-      theme: "web"
-    },
-    {
-      q: "Who Wrote the Bitcoin Paper?",
-      type: "select",
-      ops: ["Satoko Nakamura", "Dwight Van Diem", "Norman O. Brown", "Satoshi Nakamura", "Satoshi Nakamoto"],
-      a: 4,
-      theme: "blockchain"
-    },
-    {
-      q: "SERVER ERROR... Please Enter Password",
-      type: "text",
-      a: PASSWORD,
-      theme: "web"
-    },
-    {
-      q: "What does the Internet Protocol handle?",
-      type: "select",
-      ops: ["The Internet, DUH!", "Kung Fu", "Interconnection Primaries", "Addressing", "Pizza Scripting"],
-      a: 3,
-      theme: "web"
-    },
-    {
-      q: "What is the computer inside your computer acting as our internet gateway?",
-      type: "select",
-      ops: ["The Browser", "Canada", "Common Gateway Interface", "Decentraland", "Metamask"],
-      a: 0,
-      theme: "web"
-    }
-  ]
-
-  const TEST = QUESTIONS.sort((a,b)=>{return 0.5 - Math.random()});
-
-  function genBasicStatPie(targetElem,correct, incorrect) {
-      const chartOptions = {
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie',
-          spacingTop: 15,
-          margin: 1,
-          padding: 0
-        },
-        title: {
-            text: ''
-        },
-        plotOptions: {
-            pie: {
-                cursor: 'crosshair',
-                dataLabels: false
-            }
-        },
-        series: [{
-            data: [
-            {
-                name: 'Correct',
-                y: correct,
-                color: '#58e349'
-            },
-            {
-                name: 'Incorrect',
-                y: incorrect,
-                color: '#ed5353'
-            }
-            ]
-          }
-        ]
-    };
-
-      Highcharts.chart(targetElem, chartOptions)
-      $('.highcharts-credits').hide();
-  }
-
-  function getAnswer(_idx, _val) {
-    if (_val == "txt_ans") {
-      answers[_idx] = document.getElementById("txt_ans_ONLY").value;
-    } else {
-      answers[_idx] = _val;
-    }
-  }
-
-
-  function generateTestUIComponent(_data, mainIdx) {
-    let q_num = Number(mainIdx) + 1;
-    switch (_data.type) {
-      case "select":
-        const options = _data.ops.map((opt, idx) => `<input class="radio-select" onClick="getAnswer(${mainIdx}, ${idx})" name="select_${mainIdx}" type="radio" value=${idx}/>${opt}<br/>`).join("")
-        return `<div class="card"><h4 class="question"> Q${q_num}.) ${_data.q}</h4><div">${options}</div></div>`;
-      case "text":
-        return `<div class="card"> <h4 class="question error"> Q${q_num}.) ${_data.q}</h4> <input class="form-control" id="txt_ans_ONLY" onChange="getAnswer(${mainIdx}, 'txt_ans')" type="text"/></div>`;
-    }
-  }
-
-  function generateTest() {
-    let formattedQuestions = [];
-
-    for (q of TEST) {
-      formattedQuestions.push(generateTestUIComponent(q, TEST.indexOf(q)));
-    }
-
-    return formattedQuestions.join('<br/>');
-  }
-
-  function checkAnswers() {
-    
-    let num_right = 0;
-
-    for (q of TEST) {
-      q_idx = TEST.indexOf(q);
-      ans = answers[q_idx];
-      q.a == ans ? num_right += 1 : "";
-    }
-
-    if (num_right != TEST.length){
-        $('#quiz-status-text').addClass("error");
-        $('#quiz-status-text').html("Quiz Unfinished");
-        $('#gen-badge-button').addClass('btn-nogo disabled');
-    } else {
-        $('#quiz-status-text').addClass("success");
-        $('#quiz-status-text').html("Quiz Finished");
-        $('#gen-badge-button').removeClass('disabled').addClass('btn-success');
-    }; 
-
-
-    $("#modal-status").html(`Correct Answers: ${num_right} / ${TEST.length}`);
-    $("#test-status").show();
-    genBasicStatPie("rg-chart-pie", num_right, TEST.length - num_right);
-    $('body').addClass('no-scroll');
-    //alert(`You Got ${num_right} / ${TEST.length} Correct!`)
-  }
-
-  function closeModal() {
-    $("#test-status").hide();
-  }
-
-  function main() {
-
-    $("#mainTest").html(generateTest());
-    $('body').animate({scrollTop: 0}, 150);
-  }
-
-  // On Start
-  hax1();
-  $(document).ready(()=>{main()});
-  
-</script>
-
-<style>
-  :root {
-    --footer-blue: rgba(30, 108, 147, 1)
-  }
-
-  body {
-    font-family: 'Encode Sans Expanded', sans-serif;
-    z-index: 1000;
-  }
-
-  #logo {
-    height: 35px;
-  }
-
-  .card {
-    padding: 20px;
-    padding-left: 30px;
-    border-radius: 0;
-  }
-
-  #header {
-    padding: 20px;
-    padding-left: 50px;
-    border-bottom: 1px solid var(--footer-blue);
-    margin-bottom: 75px;
-    font-size: 25px;
-  }
-
-  .radio-select {
-    margin-right: 5px;
-    cursor: pointer;
-  }
-
-  .btn-info {
-    color: white;
-  }
-
-  .error {
-    color: red;
-  }
-
-  .question {
-    margin-bottom: 15px;
-  }
-
-  #header-text {
-    font-size: 17px;
-    color: var(--footer-blue);
-  }
-
-  #link-container {
-    float: right;
-  }
-
-  #link-container a {
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--footer-blue);
-  }
-
-  #footer {
-    background-color: var(--footer-blue);
-    margin-top: 250px;
-    min-height: 150px;
-    padding: 50px;
-    color: white;
-    font-size: 14px;
-  }
-
-  input[type='radio']:checked:after {
-    background-color: var(--footer-blue);
-  }
-
-  h4 {
-    color: var(--footer-blue);
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
-
-  #test-status {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 1001;
-    background-color: rgba(0, 0, 0, 0.80);
-    backdrop-filter: blur(4px);
-    animation: fadeIn 0.1s;
-    overflow: auto !important;
-  }
-
-  .modal-body {
-    margin: auto;
-    margin-right: 13%;
-    margin-left: 13%;
-    background-color: white;
-    top: 10%;
-    padding: 3%;
-    padding-top: 4%;
-    margin-bottom: 10px;
-    animation: slideUp 0.2s;
-  }
-
-  @keyframes slideUp {
-      0% {
-          opacity: 0;
-          transform: translateY(startYposition);
-      }
-      100%{
-          opacity: 1;
-          transform: translateY(endYposition);
-      }
-  }
-
-  .submit-button {
-    float: right;
-  }
-
-  .btn {
-      border-radius: 0;
-  }
-
-  .badge-preview {
-      height: 300px;
-  }
-  .preview-container {
-      display: inline-block;
-      padding: 10px;
-      border: 1px solid #AAAAAA;
-      margin-bottom: 12px;
-      background-color: white;
-
-  }
-  .preview-text {
-      margin-bottom: 5px;
-  }
-  .mini-text {
-    font-size: 11px;
-    text-justify: distribute-all-lines;
-    margin-bottom: 5px;
-    margin-top: 10px;
-  }
-  .md-text {
-      font-size: 13px;
-  }
-
-  .emphasis-box {
-      background-color: #F7F7F7;
-      padding: 20px;
-  }
-
-  .no-scroll {
-      height: 100%;
-      overflow: hidden;
-  }
-
-  .success {
-      color: green;
-  }
-
-  #quiz-status-text {
-      border: 1px dotted black;
-      padding-top: 5px;
-      padding-bottom: 5px
-  }
-
-  .btn-nogo {
-      background-color: #eeeeee;
-      border: 1px dotted #dddddd;
-  }
-
-</style>
-
 </html>
